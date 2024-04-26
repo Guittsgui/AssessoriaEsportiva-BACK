@@ -3,7 +3,7 @@ import NewsLetterController from "../controllers/NewsLetterController";
 
 const newsLetterRouter = Router();
 
-    newsLetterRouter.get('/newsLetter', NewsLetterController.add)
+    newsLetterRouter.post('/newsLetter', NewsLetterController.add)
  
 
 

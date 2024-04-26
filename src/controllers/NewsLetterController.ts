@@ -6,19 +6,20 @@ class NewsLetterController {
 
     async add(req:Request,res:Response){
 
-        const email = "guis@guis.com";
+        const email = req.body;
 
         if( !email){
             return res.status(404).json({msg: "Não encontramos o Email."})
         }
+        
         if(!isEmailValid(email)){
             return res.status(404).json({msg: "Informe um Email válido"})
         }
 
-        const isOk = await NewsLetterRepository.add(email);
+        const hasBeenAddedSuccesfully = await NewsLetterRepository.add(email);
         
-        if(!isOk){
-            return res.status(400).json({msg: "Email já Existente"})
+        if(!hasBeenAddedSuccesfully){
+            return res.status(400).json({msg: "Algo deu Errado"})
         }
 
         return res.status(200).json({msg: "Email savo com Sucesso"})
