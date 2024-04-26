@@ -4,9 +4,9 @@ import NewsLetterRepository from "../repositories/NewsLetterRepository";
 
 class NewsLetterController {
 
-    add(req:Request,res:Response){
+    async add(req:Request,res:Response){
 
-        const email = "gui@gui.com";
+        const email = "guis@guis.com";
 
         if( !email){
             return res.status(404).json({msg: "Não encontramos o Email."})
@@ -15,8 +15,14 @@ class NewsLetterController {
             return res.status(404).json({msg: "Informe um Email válido"})
         }
 
-        NewsLetterRepository.add(email)
-        return res.status(200).json({msg: "Email Adicionado com Sucesso"})
+        const isOk = await NewsLetterRepository.add(email);
+        
+        if(!isOk){
+            return res.status(400).json({msg: "Email já Existente"})
+        }
+
+        return res.status(200).json({msg: "Email savo com Sucesso"})
+              
     }
 }
 

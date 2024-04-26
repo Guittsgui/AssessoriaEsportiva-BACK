@@ -3,12 +3,17 @@ import { db } from "../libs/prisma";
 class NewsLetterRepository{
 
 
-    async add(email: string){
-        await db.newsLetter.create({
-            data: {
-                email
-            }
-        });
+    async add(email: string){    
+        try {
+            await db.newsLetter.create({
+                data:{
+                    email
+                }
+            })
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 }
 
