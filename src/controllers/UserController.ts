@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import isEmailValid from "../utils/isEmailValid";
 import UserRepository from "../repositories/UserRepository";
-import bcrypt from 'bcrypt'
+import { encryptPassword } from "../libs/bcrypt";
+
 
 class UserController{
 
     getAll(req: Request, res: Response){
-        res.status(200).json({msg: "Chegou Direitin no Controller"})
+
     }
 
     getByID(){
@@ -25,8 +26,7 @@ class UserController{
             return res.status(400).json({msg: "Senhas incompatíveis"})
         }
 
-        const salt = bcrypt.genSaltSync(10)
-        const hashedPassword = bcrypt.hashSync(password,salt)
+        const hashedPassword = await encryptPassword(password)
 
         const newUser = {
             name,

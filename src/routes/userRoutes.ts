@@ -5,7 +5,7 @@ const userRouter = Router();
 
     userRouter.get('/users', UserController.getAll)
     userRouter.get('/user/:id', UserController.getByID)
-    userRouter.post('/user')
+    userRouter.post('/user', UserController.add)
     userRouter.put('/user')
     userRouter.delete('/:id')
 
