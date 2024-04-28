@@ -12,3 +12,11 @@ model NewsLetter {
   id Int @id @default(autoincrement())
   email String @unique
 }
+
+model EmailContact{
+  id Int @id @default(autoincrement())
+  email String 
+  name String
+  subject String 
+  messageBody String 
+}
