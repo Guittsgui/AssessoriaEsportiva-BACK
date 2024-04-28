@@ -1,8 +1,8 @@
 import { Router } from "express";
 import ContactEmailController from "../controllers/ContactEmailController";
 
-const newsLetterRouter = Router();
+const contacEmailRoutes = Router();
 
-newsLetterRouter.post('/newsletter', ContactEmailController.addAndSendEmail)
+contacEmailRoutes.post('/newsletter', ContactEmailController.addAndSendEmail)
  
-export default newsLetterRouter;
+export default contacEmailRoutes;

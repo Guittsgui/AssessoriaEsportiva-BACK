@@ -1,3 +1,6 @@
+import { User } from "../types/User";
+import { db } from "../libs/prisma";
+
 class UserRepository{
 
     showAll(){
@@ -8,8 +11,9 @@ class UserRepository{
 
     }
 
-    add(){
+    async add(user: User){
 
+        //const emailAlreadyExists = 
     }
 
     alter(){
