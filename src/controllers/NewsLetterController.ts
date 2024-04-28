@@ -4,11 +4,6 @@ import NewsLetterRepository from "../repositories/NewsLetterRepository";
 
 class NewsLetterController {
 
-
-    test(req:Request,res:Response){
-        console.log('bateu aqui')
-    }
-
     async add(req:Request,res:Response){
         const {email} = req.body
     
