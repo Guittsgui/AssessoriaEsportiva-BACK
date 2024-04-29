@@ -1,40 +1,33 @@
 
-import { User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { db } from "../libs/prisma";
+
+type userToBeAdded = {
+    name: string,
+    email: string,
+    role: Role,
+    hashedPassword: string
+}
 
 class UserRepository{
 
-    showAll(){
+    async add(user: userToBeAdded){
 
+        const userAdded = await db.user.create({
+            data: user
+        })
+        return userAdded;
     }
 
-    showById(){
-
-    }
-
-    async add(user: any){
-        const email = user.email
-        const userWithThisEmailAlreadyExists = await db.user.findUnique({
+    async findByEmail(email: string){
+        const searchIfEmailAlreadyExists = await db.user.findUnique({
             where: {
                 email
             }
         })
-        if(userWithThisEmailAlreadyExists){
-            return null;
-        }
-        const addedUser = await db.user.create({
-            data: user
-        })
-        return addedUser
+        return searchIfEmailAlreadyExists
     }
 
-    alter(){
-
-    }
-
-    delete(){
-        
-    }
 
     findByEmailAndPassword(email: string, hashedPassword: string){
         const searchedUser = db.user.findUnique({

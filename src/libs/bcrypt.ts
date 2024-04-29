@@ -7,8 +7,8 @@ class Bcrypt{
         this.salt = bcrypt.genSaltSync(10);
     }
 
-    encryptPassword(password: string){
-        return bcrypt.hashSync(password,this.salt)
+    async encryptPassword(password: string){
+        return await bcrypt.hashSync(password,this.salt)
     }
 
     async compareEncryptedPassword(password:string, hashedPassword:string){
@@ -16,5 +16,5 @@ class Bcrypt{
     }
 
 }
-export default Bcrypt
+export default new Bcrypt();
 

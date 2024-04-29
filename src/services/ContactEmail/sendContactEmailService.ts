@@ -15,7 +15,7 @@ class SendContactEmailService{
         }
 
         const nodemailer = new NodeMailer();
-        nodemailer.executeEmailSending(emailDTO)
+        return nodemailer.executeEmailSending(emailDTO)
     }
 
 }

@@ -17,7 +17,6 @@ class NodeMailer{
     });
   }
 
-
   async executeEmailSending(emailDTO: ContactEmailDTO){
     const message = this.buildMessage(emailDTO);
     const info = this.transport.sendMail(message);

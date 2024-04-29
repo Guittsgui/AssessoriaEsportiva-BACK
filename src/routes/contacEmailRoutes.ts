@@ -3,6 +3,6 @@ import ContactEmailController from "../controllers/ContactEmailController";
 
 const contacEmailRoutes = Router();
 
-contacEmailRoutes.post('/emailcontact', ContactEmailController.addAndSendEmail)
+contacEmailRoutes.post('/emailcontact', ContactEmailController.sendContactEmail)
  
 export default contacEmailRoutes;
