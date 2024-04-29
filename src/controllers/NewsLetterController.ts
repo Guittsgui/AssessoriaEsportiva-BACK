@@ -1,28 +1,23 @@
 import {Request, Response} from "express"
 import isEmailValid from "../utils/isEmailValid";
 import NewsLetterRepository from "../repositories/NewsLetterRepository";
+import createNewsLetterService from "../services/NewsLetter/createNewsLetterService";
+import { assert } from "console";
+import { AssertionError } from "assert";
+
 
 class NewsLetterController {
 
     async add(req:Request,res:Response){
-        const {email} = req.body
-    
-        if( !email){
-            return res.status(404).json({msg: "Não encontramos o Email."})
-        }
-        
-        if(!isEmailValid(email)){
-            return res.status(404).json({msg: "Informe um Email válido"})
-        }
-
-        const hasBeenAddedSuccesfully = await NewsLetterRepository.add(email);
-        
-        if(!hasBeenAddedSuccesfully){
-            return res.status(400).json({msg: "Email já Existente"})
-        }
-
-        return res.status(201).json({msg: "Email savo com Sucesso"})
-              
+        const {email} = req.body         
+        try {
+            await createNewsLetterService.execute(email)
+            return res.status(201).json({msg: "Email Salvo Sucesso."})
+        } catch (err) {
+           if(err instanceof Error){
+            return res.status(400).json({msg: err.message})
+           }
+        }             
     }
 }
 

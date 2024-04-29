@@ -43,7 +43,6 @@ class Auth {
                     success = true
                 } catch (error) {                   
                 }
-
             }
         }
         if(success){
