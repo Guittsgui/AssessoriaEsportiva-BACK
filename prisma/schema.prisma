@@ -26,7 +26,7 @@ model User{
   email String @unique
   name String 
   role Role
-  password String
+  hashedPassword String
 }
 
 enum Role{

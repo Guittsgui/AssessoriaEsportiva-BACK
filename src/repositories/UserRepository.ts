@@ -1,4 +1,5 @@
-import { User } from "../types/User";
+
+import { User } from "@prisma/client";
 import { db } from "../libs/prisma";
 
 class UserRepository{
@@ -11,9 +12,20 @@ class UserRepository{
 
     }
 
-    async add(user: User){
-
-        //const emailAlreadyExists = 
+    async add(user: any){
+        const email = user.email
+        const userWithThisEmailAlreadyExists = await db.user.findUnique({
+            where: {
+                email
+            }
+        })
+        if(userWithThisEmailAlreadyExists){
+            return null;
+        }
+        const addedUser = await db.user.create({
+            data: user
+        })
+        return addedUser
     }
 
     alter(){
@@ -24,11 +36,11 @@ class UserRepository{
         
     }
 
-    findByEmailAndPassword(email: string, password: string){
+    findByEmailAndPassword(email: string, hashedPassword: string){
         const searchedUser = db.user.findUnique({
             where:{
                 email,
-                password
+                hashedPassword
             }
         })
         return searchedUser;
