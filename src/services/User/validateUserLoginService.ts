@@ -1,3 +1,4 @@
+import Bcrypt from "../../libs/Bcrypt";
 import UserRepository from "../../repositories/UserRepository";
 import isEmailValid from "../../utils/isEmailValid";
 import dotenv from 'dotenv'
@@ -14,12 +15,16 @@ class ValidateUserLoginService{
         if(!isEmailValid){
             throw new Error("Insira um Email Válido.")
         }
-        const user = await UserRepository.findByEmailAndPassword(email,password)
 
+        const user = await UserRepository.findByEmail(email)
         if(!user){
-            throw new Error("Usuário ou Senha Inválidos.")
+            throw new Error("Usuário não encontrado. ")
         }
 
+        if(!await Bcrypt.compareEncryptedPassword(password, user.hashedPassword)){
+            throw new Error("Senha inválida")
+        }
+        
         const tokenJwt = JWT.sign(
             {id: user.id , email: user.email},
             process.env.JWT_SECRET_KEY as string,

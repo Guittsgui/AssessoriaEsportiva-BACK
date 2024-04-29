@@ -4,7 +4,6 @@ import Bcrypt from "../../libs/Bcrypt";
 import UserRepository from "../../repositories/UserRepository";
 import isEmailValid from "../../utils/isEmailValid";
 
-// type UserWithoutAge = Omit<User, 'age'>;
 
 class CreateUserService{
 
@@ -26,10 +25,12 @@ class CreateUserService{
             throw new Error ("Email já Cadastrado")
         }
 
+        const hashedPassword = await Bcrypt.encryptPassword(password)
+
         const userToBeAdded = {
             name,
             email,
-            hashedPassword: password,
+            hashedPassword,
             role: Role.USER
         }
      
