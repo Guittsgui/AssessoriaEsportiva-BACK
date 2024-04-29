@@ -13,8 +13,8 @@ class UserController{
     }
 
     async add(req: Request, res: Response){
-        const { name, email, password, confirmPassword} = req.body
-        if(!name || !email || !password || !confirmPassword){
+        const { name, email, password, confirmPassword, userType} = req.body
+        if(!name || !email || !password || !confirmPassword || !userType){
             return res.status(400).json({msg: "Envie todos os Campos"})
         }
         if(!isEmailValid(email)){
@@ -41,6 +41,8 @@ class UserController{
     removeById(){
 
     }
+
+   
 
 
 

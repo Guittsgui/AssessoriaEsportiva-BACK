@@ -24,6 +24,16 @@ class UserRepository{
         
     }
 
+    findByEmailAndPassword(email: string, password: string){
+        const searchedUser = db.user.findUnique({
+            where:{
+                email,
+                password
+            }
+        })
+        return searchedUser;
+    }
+
 
 
 }
