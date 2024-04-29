@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import isEmailValid from "../utils/isEmailValid";
 import UserRepository from "../repositories/UserRepository";
-import { encryptPassword } from "../libs/bcrypt";
+import { encryptPassword } from "../libs/Bcrypt";
 import { User } from "@prisma/client";
 
 

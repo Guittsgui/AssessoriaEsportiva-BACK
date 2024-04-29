@@ -1,8 +1,20 @@
 import bcrypt from 'bcrypt'
+class Bcrypt{
+    
+    salt: string
 
-const salt = bcrypt.genSaltSync(10)
+    constructor(){
+        this.salt = bcrypt.genSaltSync(10);
+    }
 
+    encryptPassword(password: string){
+        return bcrypt.hashSync(password,this.salt)
+    }
 
-export async function encryptPassword(password: string){
-    return bcrypt.hashSync(password,salt)
+    async compareEncryptedPassword(password:string, hashedPassword:string){
+        return await bcrypt.compare(password,hashedPassword)
+    }
+
 }
+export default Bcrypt
+
