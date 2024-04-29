@@ -7,11 +7,9 @@ import { encryptPassword } from "../libs/bcrypt";
 class UserController{
 
     getAll(req: Request, res: Response){
-
     }
 
     getByID(){
-
     }
 
     async add(req: Request, res: Response){
