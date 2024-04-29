@@ -1,9 +1,6 @@
 import {Request, Response} from "express"
-import isEmailValid from "../utils/isEmailValid";
-import NewsLetterRepository from "../repositories/NewsLetterRepository";
 import createNewsLetterService from "../services/NewsLetter/createNewsLetterService";
-import { assert } from "console";
-import { AssertionError } from "assert";
+
 
 
 class NewsLetterController {

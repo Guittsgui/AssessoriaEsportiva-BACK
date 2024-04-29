@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import ContactEmailDTO from '../Dto\'s/ContactEmailDTO';
 
 
 class NodeMailer{
@@ -17,18 +18,19 @@ class NodeMailer{
   }
 
 
-  async executeEmailSending(){
-    const message = this.buildMessage();
-    const info = this.transport.sendMail
+  async executeEmailSending(emailDTO: ContactEmailDTO){
+    const message = this.buildMessage(emailDTO);
+    const info = this.transport.sendMail(message);
+    return info;
   }
 
-  private buildMessage(){
-    const newMessage = ""
-    //     from: `joao <email>`,
-    //     to: 'testeapi@hotmail.com',
-    //     subject: 'Email via Site',
-    //     text: ""
-
+  private buildMessage(emailDTO: ContactEmailDTO){
+    const newMessage = {
+      from: `${emailDTO.name} <${emailDTO.email}>`,
+      to: `testeapi@hotmail.com`,
+      subject: `${emailDTO.subject}`,
+      text: `${emailDTO.messageBody}`
+    }
     return newMessage
   }
 
