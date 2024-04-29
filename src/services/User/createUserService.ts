@@ -26,12 +26,10 @@ class CreateUserService{
             throw new Error ("Email já Cadastrado")
         }
 
-        const hashedPassword = await Bcrypt.encryptPassword(password);
-
         const userToBeAdded = {
             name,
             email,
-            hashedPassword,
+            hashedPassword: password,
             role: Role.USER
         }
      

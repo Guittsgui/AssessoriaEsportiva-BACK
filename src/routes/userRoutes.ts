@@ -3,10 +3,11 @@ import UserController from "../controllers/UserController";
 
 const userRouter = Router();
 
-    userRouter.get('/users', UserController.getAll)
-    userRouter.get('/user/:id', UserController.getByID)
+    userRouter.get('/users')
+    userRouter.get('/user/:id')
     userRouter.post('/user', UserController.add)
     userRouter.put('/user')
     userRouter.delete('/:id')
+    userRouter.post('/login', UserController.validateLogin)
 
 export default userRouter;

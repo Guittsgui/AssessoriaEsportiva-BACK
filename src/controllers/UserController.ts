@@ -1,18 +1,10 @@
 import { Request, Response } from "express";
-import isEmailValid from "../utils/isEmailValid";
-import UserRepository from "../repositories/UserRepository";
-import { User } from "@prisma/client";
 import UserDTO from "../Dto's/UserDTO";
 import createUserService from "../services/User/createUserService";
+import validateUserLoginService from "../services/User/validateUserLoginService";
 
 
 class UserController{
-
-    getAll(req: Request, res: Response){
-    }
-
-    getByID(){
-    }
 
     async add(req: Request, res: Response){
         const { name, email, password, confirmPassword, role} = req.body
@@ -28,13 +20,19 @@ class UserController{
         }
     }
 
-    update(){
+    async validateLogin(req:Request, res:Response){
+        const {email, password} = req.body
 
+        try {    
+            const tokenJwt = validateUserLoginService.execute(email,password)
+            return res.status(200).json({msg: "Login Realizaod com Sucesso", tokenJwt}) 
+        } catch (err) {
+            if(err instanceof Error){
+                return res.status(401).json({msg: err.message})
+            }
+        }
     }
 
-    removeById(){
-
-    }
 
 }
 
