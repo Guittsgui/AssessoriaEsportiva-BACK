@@ -1,17 +1,16 @@
 import { error } from "console"
 import isEmailValid from "../../utils/isEmailValid"
 import NewsLetterRepository from "../../repositories/NewsLetter/NewsLetterRepository"
-import inMemoryNewsLetterRepository from "../../repositories/NewsLetter/inMemoryNewsLetterRepository"
+import InMemoryNewsLetterRepository from "../../repositories/NewsLetter/inMemoryNewsLetterRepository";
+
 
 class CreateNewsLetterService {
 
 
-    newsletterRepository: 
-        typeof NewsLetterRepository | 
-        typeof inMemoryNewsLetterRepository
+    newsletterRepository: typeof NewsLetterRepository | typeof InMemoryNewsLetterRepository
 
     constructor(newsLetterRepository: typeof NewsLetterRepository 
-        | typeof inMemoryNewsLetterRepository){
+        | typeof InMemoryNewsLetterRepository){
         this.newsletterRepository = newsLetterRepository;
     }
 
@@ -23,7 +22,7 @@ class CreateNewsLetterService {
         if(!isEmailValid(email)){
             throw new Error("Insira um Email Válido")
         }
-        const emailAlreadyExists = await NewsLetterRepository.findByEmail(email)
+        const emailAlreadyExists = await this.newsletterRepository.findByEmail(email)
 
         if(emailAlreadyExists){
             throw new Error("Email já Existente")

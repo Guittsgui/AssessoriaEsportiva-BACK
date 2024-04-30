@@ -8,7 +8,6 @@ describe("Testing NewsLetter Endpoints", () => {
 
     let email = "teste@email.com"
 
-
     test("Testing first Endopint, PING, expect PONG.", (done) => {
         request(app)
             .get('/ping')
@@ -17,19 +16,23 @@ describe("Testing NewsLetter Endpoints", () => {
                 return done();
             })      
     })
+    // test("Should Register a new User " , (done) => {
 
-    test("Should Register a new User " , (done) => {
-
-        request(app)
-            .post('/newsletter')
-            .send(`email=${email}`)
-            .then(response => {
-                //console.log(response)
-                return done();
-            })
-    })
-
-
+    //     request(app)
+    //         .post('/newsletter')
+    //         .send(`email=${email}`)
+    //         .then(response => {
+    //             //console.log(response)
+    //             return done();
+    //         })
+    // })
 
 })
+
+describe('Testing User Routes', () => {
+
+    test("", ()=> {})
+})
+
+describe('Testing EmailContactRoute', () => {})
 

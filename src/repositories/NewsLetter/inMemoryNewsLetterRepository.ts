@@ -1,4 +1,3 @@
-import crypto, { RandomUUIDOptions, UUID } from 'crypto'
 
 interface newsLetter{
     id: number,

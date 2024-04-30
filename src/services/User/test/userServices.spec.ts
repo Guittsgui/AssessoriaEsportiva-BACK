@@ -3,6 +3,7 @@ import InMemoryUserRepository from "../../../repositories/User/inMemoryUserRepos
 import CreateUserService from "../createUserService"
 import UserDTO from "../../../Dto's/UserDTO"
 import validateUserLoginService from "../validateUserLoginService"
+import exp from "constants"
 
 const validateUserLogiService = new validateUserLoginService(InMemoryUserRepository)
 const createUserService = new CreateUserService(InMemoryUserRepository)
@@ -24,7 +25,7 @@ describe('Testing CreateUserService', () => {
         expect(response).toHaveProperty('email')
     })
 
-    test('Shouldnt add a User with a NO-Email-Valid ', async () => {
+    test('Shoul NOT add a User with a NO-Email-Valid ', async () => {
 
         let hasError = false
         const newUser:UserDTO = {
@@ -39,10 +40,10 @@ describe('Testing CreateUserService', () => {
         } catch (error) {
             hasError = true;
         }
-        expect(hasError).toBeTruthy
+        expect(hasError).toBe(true)
     } )
 
-    test('Shouldnt add a User with Diferent Password and ConfirmedPassword', async () => {
+    test('Shoul NOT add a User with Diferent Password and ConfirmedPassword', async () => {
 
         let hasError = false
         const newUser:UserDTO = {
@@ -57,18 +58,19 @@ describe('Testing CreateUserService', () => {
         } catch (error) {
             hasError = true;
         }
-        expect(hasError).toBeTruthy
+        expect(hasError).toBe(true)
     } )
 
-    test('Shouldnt add a User with a Email that already Exists', async () => {
+    test('Shoul NOT add a User with a Email that already Exists', async () => {
         let hasError = false
         const newUser:UserDTO = {
             name: "Usuário Teste",
-            email: "emailToBeTested",
+            email: "emailAlreadyExists@teste.com",
             password: "teste123",
             confirmPassword: "teste123",
             role: Role.USER
         }
+        await createUserService.execute(newUser)
         try {
             await createUserService.execute(newUser)
         } catch (error) {
@@ -83,7 +85,15 @@ describe('Test ValidateUserLoginService', () => {
     // const validateUserLogiService = new validateUserLoginService(InMemoryUserRepository)
     
     test("Verify Correctly Email and Password Login" , async () => {
-        const response = await validateUserLogiService.execute("teste@teste.com", "teste123")
+        const newUser:UserDTO = {
+            name: "VerifyLoginUser",
+            email: "verifyLogin@test.com",
+            password: "teste123",
+            confirmPassword: "teste123",
+            role: Role.USER
+        }
+        await createUserService.execute(newUser)
+        const response = await validateUserLogiService.execute("verifyLogin@test.com", "teste123")
         expect(response).toBeDefined
     })
 
@@ -94,17 +104,28 @@ describe('Test ValidateUserLoginService', () => {
         } catch (error) {
             hasError=true
         }
-        expect(hasError).toBeTruthy
+        expect(hasError).toBe(true)
     })
 
-    test("Unssuccessfully Login with a Email that exists butPassword Doesnt.", async() => {
-        let hasError = false;
-        try {
-            await validateUserLogiService.execute("teste@teste.com", "123123")
-        } catch (error) {
-            hasError=true
+    test("Unssuccessfully Login with Wright Email but Wrong Password", async () => {
+        const newUser:UserDTO = {
+            name: "rightEmailTest",
+            email: "rightEmail@right.com",
+            password: "teste123",
+            confirmPassword: "teste123",
+            role: Role.USER
         }
-        expect(hasError).toBeTruthy
+
+        await createUserService.execute(newUser);
+
+        let hasError = false;
+
+        try {
+            await validateUserLogiService.execute("rightEmail@right.com", "NaoÉaSenhaCorreta")
+        } catch (error) {
+            hasError = true
+        }
+        expect(hasError).toBe(true)
     })
 
 })

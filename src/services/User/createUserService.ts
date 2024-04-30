@@ -20,7 +20,7 @@ class CreateUserService{
         if(!name || !email || !password || !confirmPassword ){
             throw new Error ("Preencha todos os campos")
         }
-        if(!isEmailValid){
+        if(!isEmailValid(email)){
             throw new Error ("Informe um Email válido")
         }
         if( password !== confirmPassword){
