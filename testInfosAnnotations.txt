@@ -1,0 +1,30 @@
+// Annotations p/ Aprender Testes.
+
+==>> expect(res).MATCHES()
+
+Matches ==> 
+        .toBe(15) - Que o resultado seja igual a 15.
+        .toHaveLenght(7) - Que o resultado tenha uma LENGHT de 7
+        .toHaveProperty('name', 'email') - Que o resultado tenha as propriedades nome e email.
+        .toBeFalse() - Que o resultado seja False
+        .toBeTrue() - Que o resultado seja True
+        .toBeUndefined() - Que o resultado seja Undefined
+        .not.toBeUndefined() - Que o resultado NÃO seja Undefined. 
+        .toBeNull() = Que o resultado seja Null
+        .toBeGreaterThan = Que o resultado seja Maior que.
+        .toBeGreaterThanOrEqual = Que o resultado seja maior ou igual.
+        .toBeLess = Que o resultado seja menor.
+        .toMatch(/regex/).
+        .toThrowNewError = Que o resultado lance um erro.
+
+LIFECycle =>>
+        Se estiver dentro do Describe funcionará para o Describe.
+        Se estiver fora do Describe funcionará para todos os Describes.
+        beforeEach(() => {
+        })
+        beforeall(() => {
+        })
+        afterEach(() => {
+        })
+        afterAll(() => {
+        })

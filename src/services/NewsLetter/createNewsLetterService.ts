@@ -20,10 +20,12 @@ class CreateNewsLetterService {
         if( !email){
             throw new Error("Email é Obrigatório.")
         }      
-        if(!isEmailValid){
+        if(!isEmailValid(email)){
             throw new Error("Insira um Email Válido")
         }
         const emailAlreadyExists = await NewsLetterRepository.findByEmail(email)
+
+        console.log("********* AQUI VEIO ISSO: " + emailAlreadyExists)
 
         if(emailAlreadyExists){
             throw new Error("Email já Existente")
