@@ -10,12 +10,12 @@ const createUserService = new CreateUserService(InMemoryUserRepository)
 describe('Testing CreateUserService', () => {
 
     // const createUserService = new CreateUserService(InMemoryUserRepository)
-    const emailToBeTested = "teste@teste.com"
+
 
     test('Should add a User successfully', async () => {
         const newUser:UserDTO = {
             name: "Usuário Teste",
-            email: emailToBeTested,
+            email: "teste@teste.com",
             password: "teste123",
             confirmPassword: "teste123",
             role: Role.USER
@@ -39,6 +39,7 @@ describe('Testing CreateUserService', () => {
         } catch (error) {
             hasError = true;
         }
+        expect(hasError).toBeTruthy
     } )
 
     test('Shouldnt add a User with Diferent Password and ConfirmedPassword', async () => {
@@ -63,7 +64,7 @@ describe('Testing CreateUserService', () => {
         let hasError = false
         const newUser:UserDTO = {
             name: "Usuário Teste",
-            email: emailToBeTested,
+            email: "emailToBeTested",
             password: "teste123",
             confirmPassword: "teste123",
             role: Role.USER
@@ -83,7 +84,7 @@ describe('Test ValidateUserLoginService', () => {
     
     test("Verify Correctly Email and Password Login" , async () => {
         const response = await validateUserLogiService.execute("teste@teste.com", "teste123")
-        console.log(response)
+        expect(response).toBeDefined
     })
 
     test("Unsuccessfully Login with a Email that doesnt Exists", async () => {

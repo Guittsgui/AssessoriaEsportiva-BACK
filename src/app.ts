@@ -11,7 +11,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 class App{
 
-    private app: express.Application
+    public app: express.Application
     constructor(){
         this.app = express();
         this.configApp();
@@ -37,6 +37,9 @@ class App{
             userRouter,
             contacEmailRoutes,
         )
+        this.app.use('/ping', (request, response) => {
+            response.status(200).json({msg: "TOMA O PONG"})
+        })
         this.app.use((request, response) => {
             response.status(404);
             response.json({msg: 'Página Não Encontrada'})

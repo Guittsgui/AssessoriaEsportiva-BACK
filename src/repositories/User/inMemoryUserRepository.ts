@@ -13,7 +13,6 @@ class InMemoryUserRepository{
 
     constructor(){
         this.userList = []
-        console.log("TAMANHO DA LISTA É ESSE AQUI "+ this.userList.length)
     }
 
 

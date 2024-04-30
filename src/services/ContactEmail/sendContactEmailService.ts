@@ -6,7 +6,7 @@ class SendContactEmailService{
 
 
     nodemailer: any
-    constructor(nodemailer: any){
+    constructor(nodemailer: typeof NodeMailer){
         this.nodemailer = nodemailer
     }
 
