@@ -6,7 +6,6 @@ import userRouter from './routes/userRoutes';
 import bodyParser from 'body-parser';
 import contacEmailRoutes from './routes/contacEmailRoutes';
 import morgan from 'morgan'
-
 import dotenv from 'dotenv'
 
 dotenv.config();

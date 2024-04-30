@@ -1,6 +1,6 @@
 import {Request, Response} from "express"
-import createNewsLetterService from "../services/NewsLetter/createNewsLetterService";
-
+import CreateNewsLetterService from "../services/NewsLetter/createNewsLetterService";
+import NewsLetterRepository from "../repositories/NewsLetter/NewsLetterRepository";
 
 
 class NewsLetterController {
@@ -8,6 +8,7 @@ class NewsLetterController {
     async add(req:Request,res:Response){
         const {email} = req.body         
         try {
+            const createNewsLetterService = new CreateNewsLetterService(NewsLetterRepository)
             await createNewsLetterService.execute(email)
             return res.status(201).json({msg: "Email Salvo Sucesso."})
         } catch (err) {

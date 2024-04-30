@@ -1,8 +1,19 @@
 import { error } from "console"
 import isEmailValid from "../../utils/isEmailValid"
 import NewsLetterRepository from "../../repositories/NewsLetter/NewsLetterRepository"
+import inMemoryNewsLetterRepository from "../../repositories/NewsLetter/inMemoryNewsLetterRepository"
 
 class CreateNewsLetterService {
+
+
+    newsletterRepository: 
+        typeof NewsLetterRepository | 
+        typeof inMemoryNewsLetterRepository
+
+    constructor(newsLetterRepository: typeof NewsLetterRepository 
+        | typeof inMemoryNewsLetterRepository){
+        this.newsletterRepository = newsLetterRepository;
+    }
 
     async execute(email: string){
 
@@ -18,9 +29,9 @@ class CreateNewsLetterService {
             throw new Error("Email já Existente")
         }
 
-        return NewsLetterRepository.add(email);
+        return this.newsletterRepository.add(email);
     }
 }
 
 
-export default new CreateNewsLetterService()
+export default CreateNewsLetterService

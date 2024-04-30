@@ -22,7 +22,7 @@ class InMemoryNewsLetterRepository{
         return newsLetterToBeAdded;
     }
 
-    verifyByEmail(email:string){
+    findByEmail(email:string){
         const hasEmail = this.newsLetterList.find(item => item.email === email)
         return hasEmail;
     }
