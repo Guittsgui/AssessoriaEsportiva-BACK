@@ -1,5 +1,5 @@
 import Bcrypt from "../../libs/Bcrypt";
-import UserRepository from "../../repositories/UserRepository";
+import UserRepository from "../../repositories/User/UserRepository";
 import isEmailValid from "../../utils/isEmailValid";
 import dotenv from 'dotenv'
 import  JWT  from 'jsonwebtoken';

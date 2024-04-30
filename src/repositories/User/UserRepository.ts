@@ -1,6 +1,6 @@
 
 import { Role, User } from "@prisma/client";
-import { db } from "../libs/prisma";
+import { db } from "../../libs/prisma";
 
 type userToBeAdded = {
     name: string,

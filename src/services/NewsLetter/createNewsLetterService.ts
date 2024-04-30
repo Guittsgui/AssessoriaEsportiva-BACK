@@ -1,6 +1,6 @@
 import { error } from "console"
 import isEmailValid from "../../utils/isEmailValid"
-import NewsLetterRepository from "../../repositories/NewsLetterRepository"
+import NewsLetterRepository from "../../repositories/NewsLetter/NewsLetterRepository"
 
 class CreateNewsLetterService {
 

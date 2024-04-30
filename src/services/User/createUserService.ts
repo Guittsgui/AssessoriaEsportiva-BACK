@@ -1,7 +1,7 @@
 import { Role} from "@prisma/client";
 import UserDTO from "../../Dto's/UserDTO";
 import Bcrypt from "../../libs/Bcrypt";
-import UserRepository from "../../repositories/UserRepository";
+import UserRepository from "../../repositories/User/UserRepository";
 import isEmailValid from "../../utils/isEmailValid";
 
 

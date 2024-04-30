@@ -24,7 +24,6 @@ class UserController{
 
     async validateLogin(req:Request, res:Response){
         const {email, password} = req.body
-
         try {
             const tokenJwt = await validateUserLoginService.execute(email,password)
             return res.status(200).json({tokenJwt})
