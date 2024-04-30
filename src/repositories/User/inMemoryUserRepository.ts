@@ -1,22 +1,23 @@
 import { Role } from "@prisma/client";
 
-interface User{
+interface UserToBeAdded {
     name: string,
     email: string,
-    password: string,
-    role: Role
+    role: Role,
+    hashedPassword: string
 }
 
 class InMemoryUserRepository{
 
-    userList: User[]
+    userList: UserToBeAdded[]
 
     constructor(){
         this.userList = []
+        console.log("TAMANHO DA LISTA É ESSE AQUI "+ this.userList.length)
     }
 
 
-    add(userToBeAdded: User){
+    add(userToBeAdded: UserToBeAdded){
         this.userList.push(userToBeAdded)
         return userToBeAdded
     }
@@ -28,9 +29,9 @@ class InMemoryUserRepository{
 
     findByEmailAndPassword(email:string, password: string){
         const findedUser = this.userList.find(item => 
-            item.email === email && item.password === password)
+            item.email === email && item.hashedPassword === password)
         return findedUser
     }
-
-
 }
+
+export default new InMemoryUserRepository()

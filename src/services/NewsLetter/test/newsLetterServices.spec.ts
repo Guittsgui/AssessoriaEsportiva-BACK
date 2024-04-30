@@ -1,5 +1,5 @@
-import inMemoryNewsLetterRepository from "../../repositories/NewsLetter/inMemoryNewsLetterRepository"
-import CreateNewsLetterService from "./createNewsLetterService"
+import inMemoryNewsLetterRepository from "../../../repositories/NewsLetter/inMemoryNewsLetterRepository"
+import CreateNewsLetterService from "../createNewsLetterService"
 
 
 describe('Test newsLetterService', () => {

@@ -25,8 +25,6 @@ class CreateNewsLetterService {
         }
         const emailAlreadyExists = await NewsLetterRepository.findByEmail(email)
 
-        console.log("********* AQUI VEIO ISSO: " + emailAlreadyExists)
-
         if(emailAlreadyExists){
             throw new Error("Email já Existente")
         }

@@ -3,9 +3,16 @@ import UserDTO from "../../Dto's/UserDTO";
 import Bcrypt from "../../libs/Bcrypt";
 import UserRepository from "../../repositories/User/UserRepository";
 import isEmailValid from "../../utils/isEmailValid";
+import InMemoryUserRepository from "../../repositories/User/inMemoryUserRepository";
 
 
 class CreateUserService{
+
+    userRepository: typeof UserRepository | typeof InMemoryUserRepository
+
+    constructor(userRepository: typeof UserRepository | typeof InMemoryUserRepository){
+        this.userRepository = userRepository
+    }
 
     async execute(userDTO: UserDTO){
         const {name, email, password, confirmPassword, role} = userDTO
@@ -34,8 +41,8 @@ class CreateUserService{
             role: Role.USER
         }
      
-        return UserRepository.add(userToBeAdded)
+        return this.userRepository.add(userToBeAdded)
     }
 }
 
-export default new CreateUserService();
+export default CreateUserService;

@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import UserDTO from "../Dto's/UserDTO";
 import createUserService from "../services/User/createUserService";
 import validateUserLoginService from "../services/User/validateUserLoginService";
+import CreateUserService from "../services/User/createUserService";
+import UserRepository from "../repositories/User/UserRepository";
+import ValidateUserLoginService from "../services/User/validateUserLoginService";
 
 
 class UserController{
@@ -9,6 +12,8 @@ class UserController{
     async add(req: Request, res: Response){
         const { name, email, password, confirmPassword, role} = req.body
         const userDTO = new UserDTO(name,email,password,confirmPassword,role)
+
+        const createUserService = new CreateUserService(UserRepository)
 
         try {
             await createUserService.execute(userDTO);
@@ -24,6 +29,8 @@ class UserController{
 
     async validateLogin(req:Request, res:Response){
         const {email, password} = req.body
+
+        const validateUserLoginService = new ValidateUserLoginService(UserRepository)
         try {
             const tokenJwt = await validateUserLoginService.execute(email,password)
             return res.status(200).json({tokenJwt})
