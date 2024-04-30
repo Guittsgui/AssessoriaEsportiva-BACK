@@ -4,6 +4,12 @@ import isEmailValid from "../../utils/isEmailValid";
 
 class SendContactEmailService{
 
+
+    nodemailer: any
+    constructor(nodemailer: any){
+        this.nodemailer = nodemailer
+    }
+
     async execute(emailDTO: ContactEmailDTO){
         const {name, email, subject, messageBody} = emailDTO
 
@@ -14,10 +20,10 @@ class SendContactEmailService{
             throw new Error ("Informe um email Válido")
         }
 
-        const nodemailer = new NodeMailer();
+        const nodemailer = new this.nodemailer();
         return nodemailer.executeEmailSending(emailDTO)
     }
 
 }
 
-export default new SendContactEmailService();
+export default SendContactEmailService;
