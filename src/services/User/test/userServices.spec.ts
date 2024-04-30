@@ -10,9 +10,6 @@ const createUserService = new CreateUserService(InMemoryUserRepository)
 
 describe('Testing CreateUserService', () => {
 
-    // const createUserService = new CreateUserService(InMemoryUserRepository)
-
-
     test('Should add a User successfully', async () => {
         const newUser:UserDTO = {
             name: "Usuário Teste",
@@ -26,8 +23,6 @@ describe('Testing CreateUserService', () => {
     })
 
     test('Shoul NOT add a User with a NO-Email-Valid ', async () => {
-
-        let hasError = false
         const newUser:UserDTO = {
             name: "Usuário Teste",
             email: "istoNaoÉumeMAIL",
@@ -35,17 +30,13 @@ describe('Testing CreateUserService', () => {
             confirmPassword: "teste123",
             role: Role.USER
         }
-        try {
-            await createUserService.execute(newUser)
-        } catch (error) {
-            hasError = true;
-        }
-        expect(hasError).toBe(true)
+        await expect(createUserService.execute(newUser))
+            .rejects
+            .toEqual(new Error ("Informe um Email válido"))
     } )
 
     test('Shoul NOT add a User with Diferent Password and ConfirmedPassword', async () => {
 
-        let hasError = false
         const newUser:UserDTO = {
             name: "Usuário Teste",
             email: "teste@teste.com",
@@ -53,37 +44,35 @@ describe('Testing CreateUserService', () => {
             confirmPassword: "123teste",
             role: Role.USER
         }
-        try {
-            await createUserService.execute(newUser)
-        } catch (error) {
-            hasError = true;
-        }
-        expect(hasError).toBe(true)
+        
+        await expect(createUserService.execute(newUser))
+            .rejects
+            .toEqual(new Error ("Senhas imcompatíveis"))
     } )
 
-    test('Shoul NOT add a User with a Email that already Exists', async () => {
-        let hasError = false
+    test('Shout NOT add an Existing Email', async () => {
         const newUser:UserDTO = {
             name: "Usuário Teste",
-            email: "emailAlreadyExists@teste.com",
+            email: "alreadyExistsUser@test.com",
             password: "teste123",
             confirmPassword: "teste123",
             role: Role.USER
-        }
-        await createUserService.execute(newUser)
-        try {
-            await createUserService.execute(newUser)
-        } catch (error) {
-            hasError = true;
-        }
-        expect(hasError).toBeTruthy
+        }  
+
+        await createUserService.execute(newUser);
+
+        await expect(createUserService.execute(newUser))
+            .rejects
+            .toEqual(new Error ("Email já Cadastrado"))
+        
     })
-})
+
+    
+});
 
 
 describe('Test ValidateUserLoginService', () => {
-    // const validateUserLogiService = new validateUserLoginService(InMemoryUserRepository)
-    
+  
     test("Verify Correctly Email and Password Login" , async () => {
         const newUser:UserDTO = {
             name: "VerifyLoginUser",
@@ -98,13 +87,11 @@ describe('Test ValidateUserLoginService', () => {
     })
 
     test("Unsuccessfully Login with a Email that doesnt Exists", async () => {
-        let hasError = false;
-        try {
-            await validateUserLogiService.execute("naoexiste@naoexiste.com", "123123")
-        } catch (error) {
-            hasError=true
-        }
-        expect(hasError).toBe(true)
+ 
+            await expect(validateUserLogiService.execute("naoexiste@naoexiste.com", "123123"))
+                .rejects
+                .toEqual(new Error("Usuário não encontrado. ")) 
+
     })
 
     test("Unssuccessfully Login with Wright Email but Wrong Password", async () => {
@@ -117,15 +104,11 @@ describe('Test ValidateUserLoginService', () => {
         }
 
         await createUserService.execute(newUser);
+    
+        await expect(validateUserLogiService.execute("rightEmail@right.com", "NaoÉaSenhaCorreta"))
+            .rejects
+            .toEqual(new Error("Senha inválida"))
 
-        let hasError = false;
-
-        try {
-            await validateUserLogiService.execute("rightEmail@right.com", "NaoÉaSenhaCorreta")
-        } catch (error) {
-            hasError = true
-        }
-        expect(hasError).toBe(true)
     })
 
 })

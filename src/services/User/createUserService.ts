@@ -27,7 +27,7 @@ class CreateUserService{
             throw new Error ("Senhas imcompatíveis")
         }
 
-        const hasEmailAlreadyExists = await UserRepository.findByEmail(email)
+        const hasEmailAlreadyExists = await this.userRepository.findByEmail(email)
         if(hasEmailAlreadyExists){
             throw new Error ("Email já Cadastrado")
         }

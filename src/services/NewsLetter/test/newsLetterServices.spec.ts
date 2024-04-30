@@ -2,48 +2,34 @@ import InMemoryNewsLetterRepository from "../../../repositories/NewsLetter/inMem
 import CreateNewsLetterService from "../createNewsLetterService"
 
 
-describe('Test newsLetterService', () => {
 
+describe('Test newsLetterService', () => {
+    
+    const createNewsLetterService = new CreateNewsLetterService(InMemoryNewsLetterRepository)  
     
     test('Should add successfully a new EmailNewsletter', async () => {
-        const createNewsLetterService = new CreateNewsLetterService(InMemoryNewsLetterRepository)  
         const response = await createNewsLetterService.execute("teste@teste.com")
         expect(response).toHaveProperty('email')
     })
 
     test('Shouldnt add a Email that already exists', async () => {
-        const createNewsLetterService = new CreateNewsLetterService(InMemoryNewsLetterRepository)
-        let hasError = false;
-        await createNewsLetterService.execute("alreadyExists@alreadyExists.com")
-        try {
-            await createNewsLetterService.execute("alreadyExists@alreadyExists.com")
-        } catch (error) {
-            hasError = true;
-        }
-        expect(hasError).toBe(true)
+        await createNewsLetterService.execute("email@email.com")
+        await expect(createNewsLetterService.execute("email@email.com"))
+            .rejects
+            .toEqual(new Error("Email já Existente"))
     })
 
-    test('Shouldnt add successfully without a email', async () => {
-        const createNewsLetterService = new CreateNewsLetterService(InMemoryNewsLetterRepository)
-        let hasError = false;
-        try {
-            await createNewsLetterService.execute("")
-        } catch (error) {
-           hasError = true
-        }
-        expect(hasError).toBe(true)      
+    test('Shoul NOT add successfully without a email', async () => {
+        await expect(createNewsLetterService.execute(""))
+            .rejects
+            .toEqual(new Error("Email é Obrigatório.")
+        )
     })
 
-    test('Shout NOT add successfully with a WrongEmail', async () => {
-        const createNewsLetterService = new CreateNewsLetterService(InMemoryNewsLetterRepository)
-        let hasError = false;
-        const wrongEmail = "IstoNaoÉumEmail"
-        try {
-            await createNewsLetterService.execute(wrongEmail)
-        } catch (error) {
-            hasError = true
-        }
-        expect(hasError).toBe(true)  
+    test('Shout NOT add successfully with a Invalid Email', async () => {
+        await expect(createNewsLetterService.execute("ItsNotAnValidEmail"))
+            .rejects
+            .toEqual(new Error("Insira um Email Válido"))
     })
   
 
