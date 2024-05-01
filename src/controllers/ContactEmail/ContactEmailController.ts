@@ -1,7 +1,7 @@
 import {Request, Response} from "express"
-import ContactEmailDTO from "../dto/ContactEmailDTO";
-import SendContactEmailService from "../services/ContactEmail/sendContactEmailService";
-import NodeMailer from "../libs/Nodemailer/Nodemailer";
+import ContactEmailDTO from "../../dto/ContactEmailDTO";
+import SendContactEmailService from "../../services/ContactEmail/sendContactEmailService";
+import NodeMailer from "../../libs/Nodemailer/Nodemailer";
 
 class ContactEmailController{
 

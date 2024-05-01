@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import UserDTO from "../dto/UserDTO";
-import createUserService from "../services/User/createUserService";
-import validateUserLoginService from "../services/User/validateUserLoginService";
-import CreateUserService from "../services/User/createUserService";
-import UserRepository from "../repositories/User/UserRepository";
-import ValidateUserLoginService from "../services/User/validateUserLoginService";
+import UserDTO from "../../dto/UserDTO";
+import createUserService from "../../services/User/createUserService";
+import validateUserLoginService from "../../services/User/validateUserLoginService";
+import CreateUserService from "../../services/User/createUserService";
+import UserRepository from "../../repositories/User/UserRepository";
+import ValidateUserLoginService from "../../services/User/validateUserLoginService";
 
 
 class UserController{

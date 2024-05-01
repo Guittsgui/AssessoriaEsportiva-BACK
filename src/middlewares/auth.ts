@@ -1,7 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
 import JWT from 'jsonwebtoken'
-import isEmailValid from '../utils/isEmailValid'
-import UserRepository from '../repositories/User/UserRepository'
 import dotenv from 'dotenv';
 
 dotenv.config();

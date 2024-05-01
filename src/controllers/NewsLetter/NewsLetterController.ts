@@ -1,6 +1,6 @@
 import {Request, Response} from "express"
-import CreateNewsLetterService from "../services/NewsLetter/createNewsLetterService";
-import NewsLetterRepository from "../repositories/NewsLetter/NewsLetterRepository";
+import CreateNewsLetterService from "../../services/NewsLetter/createNewsLetterService";
+import NewsLetterRepository from "../../repositories/NewsLetter/NewsLetterRepository";
 
 
 class NewsLetterController {

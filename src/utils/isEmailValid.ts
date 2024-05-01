@@ -3,4 +3,4 @@ function isEmailValid(email: string) {
     return re.test(email);
 }
 
-export default isEmailValid
+export default isEmailValid   

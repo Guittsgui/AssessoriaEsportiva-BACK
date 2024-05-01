@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ContactEmailController from "../controllers/ContactEmailController";
+import ContactEmailController from "../controllers/ContactEmail/ContactEmailController";
 
 const contacEmailRoutes = Router();
 

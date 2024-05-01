@@ -4,7 +4,6 @@ import SendContactEmailService from "../sendContactEmailService";
 
 describe('Testing ContactEmail Service', () => {
 
-
     const nodemailer = new FakeNodeMailer();
     const sendContactEmailService = new SendContactEmailService(nodemailer);
 
