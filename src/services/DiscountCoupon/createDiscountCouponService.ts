@@ -13,11 +13,10 @@ class CreateDiscountCouponService{
             this.discountRepo = discountRepo
     }
     
-
     async execute(discountCouponDTO: DiscountCouponDTO){
 
         const coupon = discountCouponDTO
-        // validations
+
         if(!coupon.name || !coupon.discountPercentage || !coupon.isActive){
             throw new Error("Preencha todos os Campos")
         }
