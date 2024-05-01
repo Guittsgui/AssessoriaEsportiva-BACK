@@ -1,13 +1,19 @@
-import { Router } from "express";
+
+import { Router } from 'express';
 import BlogPostController from "../controllers/BlogPost/BlogPostController";
+class BlogPostRoutes{
 
+    router : Router
 
-const blogPostsRoutes = Router();
+    constructor(){
+        this.router = Router();
+        this.router.get('/blogpost', BlogPostController.getAll)
+        this.router.get('/blogpost/:id', BlogPostController.getByID)
+        this.router.post('/blogpost', BlogPostController.add)
+        this.router.put('/blogpost/:id', BlogPostController.edit)
+        this.router.delete('/blogpost/:id' , BlogPostController.delete)
+    }
+}
 
-blogPostsRoutes.get('/blogpost', BlogPostController.getAll)
-blogPostsRoutes.get('/blogpost/:id', BlogPostController.getByID)
-blogPostsRoutes.post('/blogpost', BlogPostController.add)
-blogPostsRoutes.put('/blogpost/:id', BlogPostController.edit)
-blogPostsRoutes.delete('/blogpost/:id' , BlogPostController.delete)
- 
-export default blogPostsRoutes;
+export default new BlogPostRoutes();
+

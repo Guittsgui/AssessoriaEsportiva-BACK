@@ -1,12 +1,13 @@
 import express from 'express'
 import path from 'path';
 import cors from 'cors'
-import newsLetterRouter from './routes/newsLetterRoutes';
-import userRouter from './routes/userRoutes';
 import bodyParser from 'body-parser';
-import contacEmailRoutes from './routes/contacEmailRoutes';
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import newsLetterRoutes from './routes/newsLetterRoutes';
+import userRoutes from './routes/userRoutes';
+import contacEmailRoutes from './routes/contacEmailRoutes';
+import blogPostRoutes from './routes/blogPostRoutes';
 
 dotenv.config();
 class App{
@@ -33,9 +34,13 @@ class App{
     }
 
     routes(){
-        this.app.use(newsLetterRouter, 
-            userRouter,
-            contacEmailRoutes,
+        this.app.use(
+            newsLetterRoutes.router,
+            userRoutes.router,
+            contacEmailRoutes.router,
+            contacEmailRoutes.router,
+            blogPostRoutes.router
+
         )
         this.app.use('/ping', (request, response) => {
             response.status(200).json({msg: "TOMA O PONG"})

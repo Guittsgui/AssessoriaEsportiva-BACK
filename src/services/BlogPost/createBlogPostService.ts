@@ -21,7 +21,6 @@ class CreateBlogPostService{
        const result = await this.blogPostRepository.add(post);
        return result;
     }
-
 }
 
 export default CreateBlogPostService
