@@ -4,9 +4,7 @@ import {App} from '../../app'
 
 const {app} = new App();
 
-describe("Testing NewsLetter Endpoints", () => {
-
-    let email = "teste@email.com"
+describe("Testing NewsLetter Routes/Endpoints", () => {
 
     test("Testing first Endopint, PING, expect PONG.", (done) => {
         request(app)
@@ -16,23 +14,14 @@ describe("Testing NewsLetter Endpoints", () => {
                 return done();
             })      
     })
-    // test("Should Register a new User " , (done) => {
 
-    //     request(app)
-    //         .post('/newsletter')
-    //         .send(`email=${email}`)
-    //         .then(response => {
-    //             //console.log(response)
-    //             return done();
-    //         })
-    // })
+    test("Should Register a new NewsLetter" , async  () => {
+        const response = await request(app)
+                        .post("/newsletter")
+                        .send({email: "email@email.com"})
+    })
 
 })
 
-describe('Testing User Routes', () => {
 
-    test("", ()=> {})
-})
-
-describe('Testing EmailContactRoute', () => {})
 

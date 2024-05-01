@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import ContactEmailDTO from '../Dto\'s/ContactEmailDTO';
+import ContactEmailDTO from '../../dto/ContactEmailDTO';
 
 
 class NodeMailer{
@@ -19,7 +19,7 @@ class NodeMailer{
 
   async executeEmailSending(emailDTO: ContactEmailDTO){
     const message = this.buildMessage(emailDTO);
-    const info = this.transport.sendMail(message);
+    const info = await this.transport.sendMail(message);
     return info;
   }
 

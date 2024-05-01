@@ -1,7 +1,7 @@
 import { Role } from "@prisma/client"
 import InMemoryUserRepository from "../../../repositories/User/inMemoryUserRepository"
 import CreateUserService from "../createUserService"
-import UserDTO from "../../../Dto's/UserDTO"
+import UserDTO from "../../../dto/UserDTO"
 import validateUserLoginService from "../validateUserLoginService"
 import exp from "constants"
 
@@ -66,8 +66,7 @@ describe('Testing CreateUserService', () => {
             .toEqual(new Error ("Email já Cadastrado"))
         
     })
-
-    
+      
 });
 
 

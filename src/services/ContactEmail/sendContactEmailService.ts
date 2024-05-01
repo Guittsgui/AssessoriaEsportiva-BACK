@@ -1,12 +1,13 @@
-import ContactEmailDTO from "../../Dto's/ContactEmailDTO";
-import NodeMailer from "../../libs/Nodemailer";
+import ContactEmailDTO from "../../dto/ContactEmailDTO";
+import FakeNodeMailer from "../../libs/Nodemailer/FakeNodemailer";
+import NodeMailer from "../../libs/Nodemailer/Nodemailer";
 import isEmailValid from "../../utils/isEmailValid";
 
 class SendContactEmailService{
 
 
-    nodemailer: any
-    constructor(nodemailer: typeof NodeMailer){
+    nodemailer: NodeMailer | FakeNodeMailer
+    constructor(nodemailer: NodeMailer | FakeNodeMailer){
         this.nodemailer = nodemailer
     }
 
@@ -20,8 +21,7 @@ class SendContactEmailService{
             throw new Error ("Informe um email Válido")
         }
 
-        const nodemailer = new this.nodemailer();
-        return nodemailer.executeEmailSending(emailDTO)
+        return this.nodemailer.executeEmailSending(emailDTO)
     }
 
 }

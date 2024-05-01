@@ -1,8 +1,7 @@
-import {Request, Response, response} from "express"
-import ContactEmailDTO from "../Dto's/ContactEmailDTO";
-import sendContactEmailService from "../services/ContactEmail/sendContactEmailService";
+import {Request, Response} from "express"
+import ContactEmailDTO from "../dto/ContactEmailDTO";
 import SendContactEmailService from "../services/ContactEmail/sendContactEmailService";
-import NodeMailer from "../libs/Nodemailer";
+import NodeMailer from "../libs/Nodemailer/Nodemailer";
 
 class ContactEmailController{
 
@@ -10,8 +9,9 @@ class ContactEmailController{
         const{ name, email, subject, messageBody} = req.body; 
         const contactEmailDTO = new ContactEmailDTO(name,email,subject,messageBody)
 
+        const nodemailer = new NodeMailer();
         try {
-            const sendContactEmailService = new SendContactEmailService(NodeMailer);
+            const sendContactEmailService = new SendContactEmailService(nodemailer);
             await sendContactEmailService.execute(contactEmailDTO)
             return res.status(201).json({msg: "Email Enviado com Sucesso"})
         } catch (err) {
