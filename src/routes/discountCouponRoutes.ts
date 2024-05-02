@@ -8,6 +8,8 @@ class DiscountCouponRouter{
     constructor(){
         this.router = Router();
         this.router.post('/discountcoupon', DiscountCouponController.add) 
+        this.router.get('discountcoupon', DiscountCouponController.getAll)
+        this.router.get('discountcoupon/:id' , DiscountCouponController.getById)
     }
 
 }

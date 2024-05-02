@@ -21,6 +21,14 @@ class DiscountCouponController{
 
     }
 
+    getAll(){
+
+    }
+
+    getById(){
+        
+    }
+
 
 
 }

@@ -5,7 +5,6 @@ import CreateDiscountCouponService from "../createDiscountCouponService";
 
 describe("Test CreateDiscountCoupon Service", () => {
 
-
     const createDiscountCouponService = new CreateDiscountCouponService(inMemoryDiscountCouponRepository);
 
     test("Shoud add Successfully an DiscountCoupon", async () => {
