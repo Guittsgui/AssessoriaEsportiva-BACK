@@ -1,6 +1,6 @@
 import BlogPostDTO from "../../dto/BlogPostDTO"
 import BlogPostRepository from "../../repositories/BlogPost/blogPostRepository"
-import InMemoryBlogPostRepository from "../../repositories/BlogPost/inMemoryBlogPostRepository"
+import InMemoryBlogPostRepository from "../../repositories/BlogPost/InMemoryBlogPostRepository"
 
 class CreateBlogPostService{
 

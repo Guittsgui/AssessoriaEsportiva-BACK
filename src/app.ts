@@ -16,13 +16,7 @@ class App{
     constructor(){
         this.app = express();
         this.configApp();
-        this.routes();    
-    }
-
-    listen(port: number){
-        this.app.listen(process.env.PORT || port, () => {
-            console.log('Server is Running.')
-        })
+        this.configRoutes();    
     }
 
     configApp(){
@@ -33,7 +27,7 @@ class App{
         this.app.use(morgan('tiny'));
     }
 
-    routes(){
+    configRoutes(){
         this.app.use(
             newsLetterRoutes.router,
             userRoutes.router,
@@ -42,12 +36,15 @@ class App{
             blogPostRoutes.router
 
         )
-        this.app.use('/ping', (request, response) => {
-            response.status(200).json({msg: "TOMA O PONG"})
-        })
         this.app.use((request, response) => {
             response.status(404);
             response.json({msg: 'Página Não Encontrada'})
+        })
+    }
+
+    listen(port: number){
+        this.app.listen(process.env.PORT || port, () => {
+            console.log('Server is Running.')
         })
     }
 }

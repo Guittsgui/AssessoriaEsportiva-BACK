@@ -21,11 +21,6 @@ class DiscountCounponRepository{
         return coupon
     }
 
-    validateIfCouponIsActivew(name: string){
-        
-    }
-
-
 }
 
 export default new DiscountCounponRepository();

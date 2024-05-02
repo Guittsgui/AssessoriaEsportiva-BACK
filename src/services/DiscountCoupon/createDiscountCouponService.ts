@@ -2,9 +2,7 @@ import DiscountCouponDTO from "../../dto/DiscountCouponDTO";
 import discountCouponRepository from "../../repositories/DiscountCoupon/discountCouponRepository";
 import inMemoryDiscountCouponRepository from "../../repositories/DiscountCoupon/inMemoryDiscountCouponRepository";
 
-
 class CreateDiscountCouponService{
-
 
     discountRepo: typeof discountCouponRepository | typeof inMemoryDiscountCouponRepository
 
@@ -26,7 +24,7 @@ class CreateDiscountCouponService{
         
         const alreadyHasCoupon = await this.discountRepo.verifyByName(coupon.name)
 
-        if(!alreadyHasCoupon){
+        if(alreadyHasCoupon){
             throw new Error("Este cupom já Existe.")
         }
 
