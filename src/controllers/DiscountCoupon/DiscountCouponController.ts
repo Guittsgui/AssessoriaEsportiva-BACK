@@ -2,6 +2,8 @@ import {Request, Response} from 'express'
 import CreateDiscountCouponService from '../../services/DiscountCoupon/createDiscountCouponService';
 import DiscountCouponDTO from '../../dto/DiscountCouponDTO';
 import discountCouponRepository from '../../repositories/DiscountCoupon/discountCouponRepository';
+import VerifyIfCouponIsValidService from '../../services/DiscountCoupon/verifyIfCouponIsValidService.ts';
+
 
 class DiscountCouponController{
 
@@ -21,13 +23,19 @@ class DiscountCouponController{
 
     }
 
-    getAll(){
-
+    async getByName(req:Request, res:Response){
+        const {name} = req.body;
+        try {
+            const verifyIfCouponIsValidService = new VerifyIfCouponIsValidService(discountCouponRepository);
+            const coupon = await verifyIfCouponIsValidService.execute(name);
+            return res.status(200).json({msg: "Cupom Aplicado com Sucesso", coupon})
+        } catch (error) {
+            if(error instanceof Error){
+                return res.status(400).json({msg: error.message})
+            }
+        }
     }
 
-    getById(){
-        
-    }
 
 
 

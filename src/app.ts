@@ -8,6 +8,7 @@ import newsLetterRoutes from './routes/newsLetterRoutes';
 import userRoutes from './routes/userRoutes';
 import contacEmailRoutes from './routes/contacEmailRoutes';
 import blogPostRoutes from './routes/blogPostRoutes';
+import discountCouponRoutes from './routes/discountCouponRoutes';
 
 dotenv.config();
 class App{
@@ -32,9 +33,8 @@ class App{
             newsLetterRoutes.router,
             userRoutes.router,
             contacEmailRoutes.router,
-            contacEmailRoutes.router,
-            blogPostRoutes.router
-
+            blogPostRoutes.router,
+            discountCouponRoutes.router
         )
         this.app.use((request, response) => {
             response.status(404);

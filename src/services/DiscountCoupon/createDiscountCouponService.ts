@@ -15,7 +15,7 @@ class CreateDiscountCouponService{
 
         const coupon = discountCouponDTO
 
-        if(!coupon.name || !coupon.discountPercentage || !coupon.isActive){
+        if(!coupon.name || !coupon.discountPercentage ){
             throw new Error("Preencha todos os Campos")
         }
         if(coupon.discountPercentage <= 0){
