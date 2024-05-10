@@ -39,6 +39,15 @@ class UserRepository{
         return searchedUser;
     }
 
+    findById(id: number){
+        const searchedUser = db.user.findUnique({
+            where:{
+                id
+            }
+        })
+        return searchedUser
+    }
+
 
 
 }

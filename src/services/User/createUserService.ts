@@ -15,7 +15,7 @@ class CreateUserService{
     }
 
     async execute(userDTO: UserDTO){
-        const {name, email, password, confirmPassword, role} = userDTO
+        const {name, email, password, confirmPassword, id} = userDTO
 
         if(!name || !email || !password || !confirmPassword ){
             throw new Error ("Preencha todos os campos")
@@ -35,6 +35,7 @@ class CreateUserService{
         const hashedPassword = await Bcrypt.encryptPassword(password)
 
         const userToBeAdded = {
+            id,
             name,
             email,
             hashedPassword,

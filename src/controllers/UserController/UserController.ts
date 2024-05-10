@@ -5,6 +5,7 @@ import validateUserLoginService from "../../services/User/validateUserLoginServi
 import CreateUserService from "../../services/User/createUserService";
 import UserRepository from "../../repositories/User/UserRepository";
 import ValidateUserLoginService from "../../services/User/validateUserLoginService";
+import FindUserByIDService from "../../services/User/finduserByIDService";
 
 
 class UserController{
@@ -17,12 +18,10 @@ class UserController{
 
         try {
             await createUserService.execute(userDTO);
-            console.log('PASSOU TRANQUILO')
             return res.status(201).json({msg: "Usuário cadastrado com Sucesso"})
         } catch (err) {
             if(err instanceof Error){
-                console.log("PASSOU C MT ERRO DEU MERDA")
-            return res.status(400).json({msg: err.message})
+             return res.status(400).json({msg: err.message})
             }
         }
     }
@@ -32,10 +31,24 @@ class UserController{
 
         const validateUserLoginService = new ValidateUserLoginService(UserRepository)
         try {
-            const tokenJwt = await validateUserLoginService.execute(email,password)
-            return res.status(200).json({tokenJwt})
+            const {tokenJwt, user} = await validateUserLoginService.execute(email,password)
+            return res.status(200).json({tokenJwt, user})
         } catch (error) {
             if(error instanceof Error){
+                return res.status(400).json({msg: error.message})
+            }
+        }
+    }
+
+    async findById(req: Request, res: Response){
+        const {id} = req.body;
+        const findUserByIDService = new FindUserByIDService(UserRepository)
+
+        try {
+            const user = await findUserByIDService.execute(id)
+            return res.status(200).json({user})
+        } catch (error) {
+            if( error instanceof Error){
                 return res.status(400).json({msg: error.message})
             }
         }

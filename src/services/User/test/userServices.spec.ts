@@ -3,10 +3,11 @@ import InMemoryUserRepository from "../../../repositories/User/inMemoryUserRepos
 import CreateUserService from "../createUserService"
 import UserDTO from "../../../dto/UserDTO"
 import validateUserLoginService from "../validateUserLoginService"
-import exp from "constants"
+import FindUserByIDService from "../finduserByIDService"
 
 const validateUserLogiService = new validateUserLoginService(InMemoryUserRepository)
 const createUserService = new CreateUserService(InMemoryUserRepository)
+const findByIDUserServcice = new FindUserByIDService(InMemoryUserRepository)
 
 describe('Testing CreateUserService', () => {
 
@@ -108,6 +109,30 @@ describe('Test ValidateUserLoginService', () => {
             .rejects
             .toEqual(new Error("Senha inválida"))
 
+    })
+
+})
+
+describe('Test findUserBYID Service', () => {
+    test("Find a correct user Added" , async () => {
+        const testID:UserDTO = {
+            id: 2,
+            name: "testID",
+            email: "testID@testID.com",
+            password: "teste123",
+            confirmPassword: "teste123",
+            role: Role.USER
+        }
+        const response1 = await createUserService.execute(testID);
+        console.log(response1)
+        const response = await findByIDUserServcice.execute(2)
+        expect(response).toHaveProperty('name')
+    })
+
+    test("Cant find a user that doesnt exists" , async () => {
+        expect(findByIDUserServcice.execute(1244212411412414))
+            .rejects
+            .toEqual(new Error("Usuário não Encontrado"))
     })
 
 })

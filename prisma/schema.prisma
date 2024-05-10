@@ -40,3 +40,13 @@ model DiscountCoupon{
   isActive Boolean @default(false)
   discountPercentage Int
 }
+
+model Adress{
+  id Int @id @default(autoincrement())
+  street String
+  complement String
+  neighborhood String
+  city String
+  country String 
+  userId Int
+}

@@ -38,7 +38,8 @@ class ValidateUserLoginService{
             process.env.JWT_SECRET_KEY as string,
             {expiresIn: '2h'}
         )
-        return tokenJwt;
+        
+        return {tokenJwt, user};
     }
 }
 
