@@ -13,6 +13,7 @@ class UserRoutes{
         this.router.put('/user')
         this.router.delete('/:id')
         this.router.post('/login', UserController.validateLogin)
+        this.router.post('/changepassword', UserController.changePassword)
     }
 
 }

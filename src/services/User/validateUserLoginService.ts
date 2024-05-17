@@ -34,7 +34,7 @@ class ValidateUserLoginService{
         }
         
         const tokenJwt = JWT.sign(
-            {email: user.email},
+            {user},
             process.env.JWT_SECRET_KEY as string,
             {expiresIn: '2h'}
         )

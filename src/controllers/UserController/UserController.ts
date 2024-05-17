@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import UserDTO from "../../dto/UserDTO";
 import createUserService from "../../services/User/createUserService";
 import validateUserLoginService from "../../services/User/validateUserLoginService";
@@ -6,6 +6,7 @@ import CreateUserService from "../../services/User/createUserService";
 import UserRepository from "../../repositories/User/UserRepository";
 import ValidateUserLoginService from "../../services/User/validateUserLoginService";
 import FindUserByIDService from "../../services/User/finduserByIDService";
+import ChangeUserPasswordService from "../../services/User/changeUserPasswordService";
 
 
 class UserController{
@@ -49,6 +50,19 @@ class UserController{
             return res.status(200).json({user})
         } catch (error) {
             if( error instanceof Error){
+                return res.status(400).json({msg: error.message})
+            }
+        }
+    }
+
+    async changePassword(req: Request, res: Response){
+        const {currentPassword, newPassword, confirmNewPassword, userId} = req.body
+        const changePasswordService = new ChangeUserPasswordService(UserRepository)
+        try {
+            await changePasswordService.execute(currentPassword, newPassword, confirmNewPassword, userId)
+            return response.status(200).json({msg: "Senha Alterada com Sucesso."})
+        } catch (error) {
+            if (error instanceof Error){
                 return res.status(400).json({msg: error.message})
             }
         }
